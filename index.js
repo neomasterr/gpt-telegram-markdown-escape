@@ -108,7 +108,7 @@ MarkdownTokenizer.prototype.parseInlineCode = function () {
     this.flushToken('inline-code');
 }
 
-const escape = (value) => {
+const escape = (value, pattern = /([_\(\)\[\]])/g) => {
     if (!MarkdownTokenizer.instance) {
         MarkdownTokenizer.instance = new MarkdownTokenizer();
     }
@@ -120,9 +120,7 @@ const escape = (value) => {
                 return token.value;
             }
 
-            return token.value
-                .replace(/([_\(\)\[\]])/g, '\\$1')
-            ;
+            return token.value.replace(pattern, '\\$1');
         })
         .join('')
     ;
