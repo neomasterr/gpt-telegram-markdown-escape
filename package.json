@@ -1,6 +1,6 @@
 {
   "name": "gpt-telegram-markdown-escape",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Tokenize and escape markdown GPT answers for telegram support",
   "main": "index.js",
   "repository": {
