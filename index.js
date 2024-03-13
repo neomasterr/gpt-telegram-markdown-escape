@@ -126,5 +126,5 @@ const escape = (value, pattern = /([_\(\)\[\]])/g) => {
     ;
 }
 
-export {MarkdonTokenizer};
+export {MarkdownTokenizer};
 export default escape;
