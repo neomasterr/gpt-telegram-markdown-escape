@@ -4,5 +4,5 @@ This package escapes characters from ChatGPT answers ignoring code blocks (\`\`\
 import escapeMarkdown from 'gpt-telegram-markdown-escape';
 // ...
 
-this.telegram.send(chatId, escapeMarkdown(gptAnswer));
+telegram.send(chatId, escapeMarkdown(gptAnswer));
 ```
