@@ -108,7 +108,7 @@ MarkdownTokenizer.prototype.parseInlineCode = function () {
     this.flushToken('inline-code');
 }
 
-const escape = (value, pattern = /([_\(\)\[\]])/g) => {
+const escape = (value, pattern = /([*_\(\)\[\]])/g) => {
     if (!MarkdownTokenizer.instance) {
         MarkdownTokenizer.instance = new MarkdownTokenizer();
     }
