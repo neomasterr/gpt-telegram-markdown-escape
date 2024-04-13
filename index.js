@@ -93,7 +93,7 @@ MarkdownTokenizer.prototype.eof = function () {
 
 MarkdownTokenizer.prototype.parseCodeBlock = function () {
     const open = this.consumeLine();
-    const close = '```';
+    const close = '\n```';
 
     while (!this.eof()) {
         if (this.peek(close.length) == close) {
