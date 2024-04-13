@@ -96,16 +96,15 @@ MarkdownTokenizer.prototype.parseCodeBlock = function () {
     const close = '```';
 
     while (!this.eof()) {
-        if (this.peek(3) != close) {
-            this.consume(1);
-            continue;
+        if (this.peek(close.length) == close) {
+            this.consume(close.length);
+            break;
         }
 
-        this.consume(3);
-        break;
+        this.consume(1);
     }
 
-    if (this.buffer.slice(-3) != close) {
+    if (this.buffer.slice(-close.length) != close) {
         this.buffer += close;
     }
 
@@ -115,18 +114,18 @@ MarkdownTokenizer.prototype.parseCodeBlock = function () {
 MarkdownTokenizer.prototype.parseInlineCode = function () {
     const open = '`';
     const close = open;
-    this.consume(1);
+    this.consume(open.length);
 
     while (!this.eof()) {
-        if (this.peek(1) == open) {
-            this.consume(1);
+        if (this.peek(close.length) == close) {
+            this.consume(close.length);
             break;
         }
 
         this.consume(1);
     }
 
-    if (this.buffer.slice(-1) != close) {
+    if (this.buffer.slice(-close.length) != close) {
         this.buffer += close;
     }
 
