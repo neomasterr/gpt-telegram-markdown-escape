@@ -34,9 +34,9 @@ MarkdownTokenizer.prototype.flushPlain = function () {
     this.flushToken('plain');
 }
 
-MarkdownTokenizer.prototype.flushToken = function (type) {
+MarkdownTokenizer.prototype.flushToken = function (type, wrap = '') {
     if (this.buffer.length) {
-        this.tokens.push({type, value: this.flush()});
+        this.tokens.push({type, value: this.flush(), wrap});
     }
 }
 
@@ -77,31 +77,33 @@ MarkdownTokenizer.prototype.eof = function () {
 }
 
 MarkdownTokenizer.prototype.parseCodeBlock = function () {
+    const wrap = '```';
     this.consume(3);
 
     while (!this.eof()) {
-        if (this.peek(4) == "\n```") {
+        if (this.peek(4) == `\n${wrap}`) {
             this.consume(4);
             break;
-        } else if (this.peek(3) == '```') {
+        } else if (this.peek(3) == wrap) {
             this.consume(3);
         } else {
             this.consume(1);
         }
     }
 
-    if (this.buffer.slice(-3) != '```') {
-        this.buffer += '```';
+    if (this.buffer.slice(-3) != wrap) {
+        this.buffer += wrap;
     }
 
-    this.flushToken('code');
+    this.flushToken('code', wrap);
 }
 
 MarkdownTokenizer.prototype.parseInlineCode = function () {
+    const wrap = '`';
     this.consume(1);
 
     while (!this.eof()) {
-        if (this.peek(1) == '`') {
+        if (this.peek(1) == wrap) {
             this.consume(1);
             break;
         }
@@ -109,11 +111,11 @@ MarkdownTokenizer.prototype.parseInlineCode = function () {
         this.consume(1);
     }
 
-    if (this.buffer.slice(-1) != '`') {
-        this.buffer += '`';
+    if (this.buffer.slice(-1) != wrap) {
+        this.buffer += wrap;
     }
 
-    this.flushToken('inline-code');
+    this.flushToken('inline-code', wrap);
 }
 
 const escape = (value, pattern = /([*_\(\)\[\]])/g) => {
