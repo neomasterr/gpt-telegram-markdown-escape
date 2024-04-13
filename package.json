@@ -16,5 +16,6 @@
     "markdown"
   ],
   "author": "neomasterr",
+  "type": "module",
   "license": "MIT"
 }
