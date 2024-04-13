@@ -90,6 +90,10 @@ MarkdownTokenizer.prototype.parseCodeBlock = function () {
         }
     }
 
+    if (this.buffer.slice(-3) != '```') {
+        this.buffer += '```';
+    }
+
     this.flushToken('code');
 }
 
@@ -103,6 +107,10 @@ MarkdownTokenizer.prototype.parseInlineCode = function () {
         }
 
         this.consume(1);
+    }
+
+    if (this.buffer.slice(-1) != '`') {
+        this.buffer += '`';
     }
 
     this.flushToken('inline-code');
